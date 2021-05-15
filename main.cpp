@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <stdint.h>
+#include "create_maze.h"
 #include "objects.h"
 #include "client_udp.h"
 #include "server_udp.h"
@@ -92,6 +93,12 @@ void* client_loop(void *arg) {
 }
 
 int main(){
+
+    srand((unsigned int)time(NULL)); //seed random number generator with system time
+	initialize();      //initialize the maze
+	generate();        //generate the maze
+	savetxt();
+
     struct sockaddr_in server_addr, client_addr;
     int sock_server, sock_client;
     char *server_ip_addr = NULL;
