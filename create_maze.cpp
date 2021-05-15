@@ -1,8 +1,8 @@
 #include "create_maze.h"
 
 long numin=1;     //Number of cells in the maze.
-const int xsize=15;
-const int ysize=20;
+const int xsize=20;
+const int ysize=15;
 
 
 cell MAZE[xsize][ysize];

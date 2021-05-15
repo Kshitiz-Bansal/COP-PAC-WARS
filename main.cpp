@@ -19,6 +19,7 @@ int number_of_players = 0;
 int16_t my_id = -1;
 int16_t bullets_client[256];
 int bullets_number = 0;
+int maze[15][20];
 
 SDL_Texture* load_texture(SDL_Renderer *renderer, char *file) {
     SDL_Surface *bitmap = NULL;
@@ -94,11 +95,6 @@ void* client_loop(void *arg) {
 
 int main(){
 
-    srand((unsigned int)time(NULL)); //seed random number generator with system time
-	initialize();      //initialize the maze
-	generate();        //generate the maze
-	savetxt();
-
     struct sockaddr_in server_addr, client_addr;
     int sock_server, sock_client;
     char *server_ip_addr = NULL;
@@ -136,11 +132,47 @@ int main(){
         SDL_Quit();
         return 1;
     }
+
+    int i;
+    server_or_client(renderer, &menu, font);
+
+    // cout << "menu : " << menu << endl;
+    bool create_new_maze = 1;
+    if(menu == 'c') {
+        create_new_maze = 0;
+    }
+    if(create_new_maze) {
+        srand((unsigned int)time(NULL)); //seed random number generator with system time
+    	initialize();      //initialize the maze
+    	generate();        //generate the maze
+    	savetxt();
+        cout << "New map created.\n";
+    }
+
+    ifstream in_maze("map.txt");
+    if(!in_maze.is_open()) {
+        cout << "Error : Could not open map.txt \n";
+        exit(0);
+    }
+    string line;
+    int ylen = 20;
+    int x=0;
+    while(getline(in_maze, line)) {
+        for(int y=0; y<ylen; y++) {
+            if(line[y] == 'W') {
+                maze[x][y] = 0;
+            } else if(line[y] == 'B') {
+                maze[x][y] = 1;
+            }
+        }
+        x++;
+    }
+
+
     map = get_map_texture(renderer);
     tex = load_texture(renderer, "resources/player.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
-    int i;
-    server_or_client(renderer, &menu, font);
+
     if (menu == 'c') {
         server_ip_addr = (char*) malloc(16 * sizeof(char));
         ask_for_ip(renderer, font, server_ip_addr);
