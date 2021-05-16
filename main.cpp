@@ -147,13 +147,14 @@ int main(){
         srand((unsigned int)time(NULL)); //seed random number generator with system time
     	initialize();      //initialize the maze
     	generate();        //generate the maze
+        reflect();
     	savetxt();
         cout << "New map created.\n";
     }
 
-    ifstream in_maze("map.txt");
+    ifstream in_maze("map_reflected.txt");
     if(!in_maze.is_open()) {
-        cout << "Error : Could not open map.txt \n";
+        cout << "Error : Could not open map_reflected.txt \n";
         exit(0);
     }
     string line;

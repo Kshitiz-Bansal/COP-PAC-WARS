@@ -130,6 +130,43 @@ void generate() {
 	} while(numin<(xsize-2)*(ysize-2));
 }
 
+void reflect() {
+	ifstream in_file("map.txt");
+	ofstream out_file("map_reflected.txt");
+	string line;
+	int num = 0;
+	while(getline(in_file, line)) {
+		for(int x=0; x<xsize/2; x++) {
+			if(line[x] == 'W') {
+				line[xsize-x-1] = 'W';
+			} else {
+				line[xsize-x-1] = 'B';
+			}
+			// if(line[x] == 'W' && line[xsize-x-1] == 'W') {
+			// 	line[x] = 'W';
+			// 	line[xsize-x-1] = 'W';
+			// } else if(line[x] == 'W' || line[xsize-x-1] == 'W') {
+			// 	int v = rand();
+			// 	if(v%2) {
+			// 		line[x] = 'W';
+			// 		line[xsize-x-1] = 'W';
+			// 	} else {
+			// 		line[x] = 'B';
+			// 		line[xsize-x-1] = 'B';
+			// 	}
+			// }
+		}
+		if(!(num == 0 || num == ysize-1)) {
+			line[xsize/2] = 'W';
+			line[xsize - xsize/2] = 'W';
+		}
+		line[0] = 'B';
+		line[xsize-1] = 'B';
+		out_file << line << endl;
+		num++;
+	}
+}
+
 void savetxt() {
 	ofstream out_file("map.txt");
 	int x, y, n;

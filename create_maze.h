@@ -32,5 +32,6 @@ struct cell{
 void initialize();
 void generate();
 void savetxt();
+void reflect();
 
 #endif
