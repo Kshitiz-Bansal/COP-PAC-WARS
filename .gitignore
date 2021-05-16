@@ -1,1 +1,4 @@
-game
+# ignores all extensionless files
+*
+!*/
+!*.*

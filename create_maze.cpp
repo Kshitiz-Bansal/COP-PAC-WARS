@@ -158,7 +158,7 @@ void reflect() {
 		}
 		if(!(num == 0 || num == ysize-1)) {
 			line[xsize/2] = 'W';
-			line[xsize - xsize/2] = 'W';
+			line[xsize - xsize/2 - 1] = 'W';
 		}
 		line[0] = 'B';
 		line[xsize-1] = 'B';
