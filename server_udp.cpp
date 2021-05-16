@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 #include "server_udp.h"
 #include "network.h"
 #include "objects.h"
@@ -120,6 +121,7 @@ void* server_send_loop(void *arg) {
         int i, j;
         move_bullets(&bullets_server);
         for (i = 0; i < number_of_connected_clients; i++) {
+            cout << "before 124\n";
             move_player(&players_server[i]);
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
                 time_t now = time(0);

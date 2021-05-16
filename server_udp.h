@@ -16,6 +16,10 @@
 
 #define SERVER_PORT 1234
 
+using namespace std;
+
+extern int god;
+
 void prepare_server(int *sock, struct sockaddr_in *server_sock);
 void send_data(int sock, struct sockaddr_in client, int16_t tab[], int size);
 void* server_receive_loop(void *arg);

@@ -22,6 +22,8 @@ int16_t my_id = -1;
 int16_t bullets_client[256];
 int bullets_number = 0;
 int maze[15][20];
+int god = -1;
+
 
 SDL_Texture* load_texture(SDL_Renderer *renderer, char *file) {
     SDL_Surface *bitmap = NULL;
@@ -202,8 +204,24 @@ int main(){
 
 
     SDL_Event e;
-
+    int c=0;
+    time_t dif = 0;
     while (1) {
+        c++;
+        // cout << c << endl;
+        if(c == 100) {
+            time_t now = time(0);
+            // cout << now;
+            long int v = static_cast<long int>(now);
+            v = v % 30;
+            // cout << "num play: " << number_of_players << endl;
+            // cout << v << endl;
+            // int z = 30/(number_of_players+1)
+            god = (int)v/(int)(30/(number_of_players+1));
+            c=0;
+            // cout << "God: " << god << endl;
+        }
+
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 break;
@@ -217,6 +235,11 @@ int main(){
         for (i = 0; i <= number_of_players; i++) {
             SDL_RenderCopy(renderer, tex, NULL, &players[i].position);
         }
+
+        disp_text(renderer, "GOD: ", font, 300, 10);
+        char god_c[10] = {};
+        sprintf(god_c, "%d", god);
+        disp_text(renderer, god_c, font, 330, 10);
 
         disp_text(renderer, "kills", font, 400, 10);
         for (i = 0; i <= number_of_players; i++) {
