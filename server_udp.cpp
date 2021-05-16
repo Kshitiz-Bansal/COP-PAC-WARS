@@ -122,10 +122,14 @@ void* server_send_loop(void *arg) {
         for (i = 0; i < number_of_connected_clients; i++) {
             move_player(&players_server[i]);
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
-                players_server[i].position.x = SPAWN_X;
-                players_server[i].position.y = SPAWN_Y;
-                players_server[i].deaths++;
-                players_server[killer].kills++;
+                time_t now = time(0);
+                if(now - players_server[i].spawn_time > 3) {
+                    players_server[i].position.x = SPAWN_X;
+                    players_server[i].position.y = SPAWN_Y;
+                    players_server[i].deaths++;
+                    players_server[killer].kills++;
+                    players_server[i].spawn_time = now;
+                }
             }
         }
         int16_t *bullet_array = NULL;

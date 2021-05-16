@@ -136,28 +136,32 @@ void savetxt() {
 
 	for(y = 0; y < ysize; y++) {
 		for(x = 0; x < xsize; x++) {
-			// if(x%2 == 1 && y%2 == 1) {
+			if(x == 0 || x == xsize-1 || y == 0 || y == ysize-1) {
+				out_file << "B";
+			} else if(x%2 == 1 && y%2 == 1) {
 				if(MAZE[x][y].in) {
+					// cout << "W";
 					out_file << "W";
 				} else {
 					out_file << "B";
 				}
-			// } else if(x%2 == 0 && y%2 == 0) {
-			// 	out_file << "B";
-			// } else if(x%2 == 0 && y%2 == 1) {
-			// 	if(MAZE[x][y].left) {
-			// 		out_file << "B";
-			// 	} else {
-			// 		out_file << "W";
-			// 	}
-			// } else if(x%2 == 1 && y%2 == 0) {
-			// 	if(MAZE[x][y].up) {
-			// 		out_file << "B";
-			// 	} else {
-			// 		out_file << "W";
-			// 	}
-			// }
+			} else if(x%2 == 0 && y%2 == 0) {
+				out_file << "B";
+			} else if(x%2 == 0 && y%2 == 1) {
+				if(MAZE[x][y].left) {
+					out_file << "B";
+				} else {
+					out_file << "W";
+				}
+			} else if(x%2 == 1 && y%2 == 0) {
+				if(MAZE[x][y].up) {
+					out_file << "B";
+				} else {
+					out_file << "W";
+				}
+			}
 		}
+		// cout << endl;
 		out_file << "\n";
 	}
 

@@ -15,8 +15,8 @@ using namespace std;
 #define RIGHT 3  //+x
 
 #define nodeadend//generate a maze without any dead ends! (consequently, many solutions to maze)
-#define prim    //enable this to generate mazes using prim's algorithm.
-// #define backtrack//enable this to generate mazes using depth-first search. Don't enable both.
+// #define prim    //enable this to generate mazes using prim's algorithm.
+#define backtrack//enable this to generate mazes using depth-first search. Don't enable both.
 
 void initialize();
 void generate();

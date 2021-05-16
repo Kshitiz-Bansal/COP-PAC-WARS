@@ -4,6 +4,8 @@
 #include <pthread.h>
 #include <time.h>
 #include <stdint.h>
+#include <ctime>
+#include <bits/stdc++.h>
 #include "create_maze.h"
 #include "objects.h"
 #include "client_udp.h"

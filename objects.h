@@ -2,6 +2,7 @@
 #define OBJECTS_H
 
 #include <SDL.h>
+#include <bits/stdc++.h>
 
 struct Player {
     SDL_Rect position;
@@ -11,6 +12,7 @@ struct Player {
     int face, shoot, reloading;
     int left_key, right_key, up_key, down_key, attack_key;
     int kills, deaths;
+    long int spawn_time; // used to check immunity
 };
 
 struct Bullet {

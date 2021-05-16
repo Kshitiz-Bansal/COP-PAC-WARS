@@ -119,16 +119,8 @@ void move_player(struct Player *player) {
     }
     if (player->up) {
         y_movement -= PLAYER_SPEED;
-        // if (player->can_jump) {
-        //     player->can_jump = false;
-        //     player->y_speed = -PLAYER_JUMP_POWER;
-        // }
     }
 
-    // y_movement = player->y_speed / 3;
-    // if (player->y_speed < MAX_VERTICAL_SPEED) {
-    //     player->y_speed += GRAVITY;
-    // }
 
     while (x_movement != 0 || y_movement != 0) {
         if (x_movement != 0 && move_and_check_collisions(&player->position, X_AXIS, x_movement)) {
