@@ -120,9 +120,27 @@ void* server_send_loop(void *arg) {
         gettimeofday(&start, NULL);
         int i, j;
         move_bullets(&bullets_server);
+        struct SDL_Rect g = players_server[god].position;
+        // int god_x = players_server[god].position.x;
+        // int god_y = players_server[god].position.y;
+        // int god_w = players_server[god].position.w;
+        // int god_h = players_server[god].position.h;
         for (i = 0; i < number_of_connected_clients; i++) {
-            cout << "before 124\n";
             move_player(&players_server[i]);
+            struct SDL_Rect p = players_server[i].position;
+            if(i != god && p.x < (g.x + g.w) &&
+                            (p.x + p.w) > g.x &&
+                            p.y < (g.y + g.h) &&
+                            (p.y + p.h) > g.y) {
+                time_t now = time(0);
+                if(now - players_server[i].spawn_time > 3) {
+                    players_server[i].position.x = SPAWN_X;
+                    players_server[i].position.y = SPAWN_Y;
+                    players_server[i].deaths++;
+                    players_server[god].kills++;
+                    players_server[i].spawn_time = now;
+                }
+            }
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
                 time_t now = time(0);
                 if(now - players_server[i].spawn_time > 3) {
