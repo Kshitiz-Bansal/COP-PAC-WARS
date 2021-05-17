@@ -103,6 +103,7 @@ int main(){
     struct sockaddr_in server_addr, client_addr;
     int sock_server, sock_client;
     char *server_ip_addr = NULL;
+    char *name = NULL;
 
     char menu = 's';
     SDL_Window *window;
@@ -139,6 +140,9 @@ int main(){
     }
 
     int i;
+
+    name = (char*) malloc(16 * sizeof(char));
+    // ask_for_name(renderer, font, name);
     server_or_client(renderer, &menu, font);
 
     // cout << "menu : " << menu << endl;
@@ -200,6 +204,11 @@ int main(){
         usleep(100);
     }
 
+    cout << "my_id is: "<<my_id<<endl;
+    cout << "player name: "<<name<<endl;
+    players[my_id].name = name;
+    cout << "name set: "<<players[my_id].name;
+
     SDL_Rect bullet_pos;
     bullet_pos.w = BULLET_HEIGHT;
     bullet_pos.h = BULLET_HEIGHT;
@@ -236,28 +245,42 @@ int main(){
         disp_text(renderer, "GOD: ", font, 600, 10);
         char god_c[10] = {};
         sprintf(god_c, "%d", god);
-        disp_text(renderer, god_c, font, 680, 10);
+        disp_text(renderer, god_c, font, 670, 10);
 
         if(number_of_players > 1) {
-            disp_text(renderer, "kills", font, 800, 10);
+            disp_text(renderer, "player", font, 800, 10);
+            for (i = 0; i <= number_of_players; i++) {
+                char id[2] = {};
+                sprintf(id, "%d", i);
+                disp_text(renderer, id, font, 800, 40 + i * 40);
+            }
+
+            disp_text(renderer, "kills", font, 960, 10);
             for (i = 0; i <= number_of_players; i++) {
                 char kills[10] = {};
                 sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 800, 40 + i * 40);
+                disp_text(renderer, kills, font, 960, 40 + i * 40);
             }
 
-            disp_text(renderer, "deaths", font, 920, 10);
+            disp_text(renderer, "deaths", font, 1080, 10);
             for (i = 0; i <= number_of_players; i++) {
                 char deaths[10] = {};
                 sprintf(deaths, "%d", players[i].deaths);
-                disp_text(renderer, deaths, font, 920, 40 + i * 40);
+                disp_text(renderer, deaths, font, 1080, 40 + i * 40);
             }
         } else {
-            disp_text(renderer, "kills", font, 800, 10);
+            disp_text(renderer, "player", font, 800, 10);
+            for (i = 0; i <= number_of_players; i++) {
+                char id[2] = {};
+                sprintf(id, "%d", i);
+                disp_text(renderer, id, font, 800, 40 + i * 40);
+            }
+
+            disp_text(renderer, "kills", font, 920, 10);
             for (i = 0; i <= number_of_players; i++) {
                 char kills[10] = {};
                 sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 800, 40 + i * 40);
+                disp_text(renderer, kills, font, 920, 40 + i * 40);
             }
         }
 

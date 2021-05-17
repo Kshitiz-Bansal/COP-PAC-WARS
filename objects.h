@@ -14,6 +14,7 @@ struct Player {
     int kills, deaths;
     long int spawn_time; // used to check immunity
     long int prev_bullet_time;
+    char *name;
 };
 
 struct Bullet {
