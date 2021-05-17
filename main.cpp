@@ -21,7 +21,7 @@ int number_of_players = 0;
 int16_t my_id = -1;
 int16_t bullets_client[256];
 int bullets_number = 0;
-int maze[15][20];
+int maze[15][20]; // 2X
 int god = -1;
 
 
@@ -118,8 +118,8 @@ int main(){
             "game",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
-            640,
-            480,
+            1280, // 2X
+            960, // 2X
             0);
 
     if (window == NULL) {
@@ -160,7 +160,7 @@ int main(){
         exit(0);
     }
     string line;
-    int ylen = 20;
+    int ylen = 20; // 2X
     int x=0;
     while(getline(in_maze, line)) {
         for(int y=0; y<ylen; y++) {
@@ -208,15 +208,10 @@ int main(){
     time_t dif = 0;
     while (1) {
         c++;
-        // cout << c << endl;
         if(c == 100) {
             time_t now = time(0);
-            // cout << now;
             long int v = static_cast<long int>(now);
             v = v % 30;
-            // cout << "num play: " << number_of_players << endl;
-            // cout << v << endl;
-            // int z = 30/(number_of_players+1)
             god = (int)v/(int)(30/(number_of_players+1));
             c=0;
             // cout << "God: " << god << endl;

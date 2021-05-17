@@ -121,10 +121,6 @@ void* server_send_loop(void *arg) {
         int i, j;
         move_bullets(&bullets_server);
         struct SDL_Rect g = players_server[god].position;
-        // int god_x = players_server[god].position.x;
-        // int god_y = players_server[god].position.y;
-        // int god_w = players_server[god].position.w;
-        // int god_h = players_server[god].position.h;
         for (i = 0; i < number_of_connected_clients; i++) {
             move_player(&players_server[i]);
             struct SDL_Rect p = players_server[i].position;

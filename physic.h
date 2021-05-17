@@ -5,7 +5,7 @@
 #include "objects.h"
 #include "list.h"
 
-extern int maze[15][20];
+extern int maze[15][20]; // 2X
 
 void move_player(struct Player *player);
 SDL_Texture* get_map_texture(SDL_Renderer *renderer);
