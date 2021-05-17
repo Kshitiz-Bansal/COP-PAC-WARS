@@ -63,19 +63,23 @@ void* server_receive_loop(void *arg) {
             int16_t keys = tab[1];
             player_from_key_state(&players_server[client_pos], keys); // sets action of client
             if(players_server[client_pos].shoot && !players_server[client_pos].reloading) {
-                struct Bullet temp;
-                temp.position.x = players_server[client_pos].position.x;
-                temp.position.y = players_server[client_pos].position.y;
-                temp.position.w = BULLET_WIDTH;
-                temp.position.h = BULLET_HEIGHT;
-                temp.face = players_server[client_pos].face;
-                if (temp.face == 1) {
-                    temp.position.x += PLAYER_WIDTH;
-                } else {
-                    temp.position.x -= BULLET_WIDTH;
+                time_t now = time(0);
+                if(now - players_server[client_pos].prev_bullet_time > 3) {
+                    struct Bullet temp;
+                    temp.position.x = players_server[client_pos].position.x;
+                    temp.position.y = players_server[client_pos].position.y;
+                    temp.position.w = BULLET_WIDTH;
+                    temp.position.h = BULLET_HEIGHT;
+                    temp.face = players_server[client_pos].face;
+                    if (temp.face == 1) {
+                        temp.position.x += PLAYER_WIDTH;
+                    } else {
+                        temp.position.x -= BULLET_WIDTH;
+                    }
+                    temp.player_id = client_pos;
+                    players_server[client_pos].prev_bullet_time = now;
+                    push_element(&bullets_server, &temp, sizeof(struct Bullet));
                 }
-                temp.player_id = client_pos;
-                push_element(&bullets_server, &temp, sizeof(struct Bullet));
             }
             players_server[client_pos].reloading = players_server[client_pos].shoot;
         }

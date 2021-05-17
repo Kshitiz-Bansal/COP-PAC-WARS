@@ -13,6 +13,7 @@ struct Player {
     int left_key, right_key, up_key, down_key, attack_key;
     int kills, deaths;
     long int spawn_time; // used to check immunity
+    long int prev_bullet_time;
 };
 
 struct Bullet {

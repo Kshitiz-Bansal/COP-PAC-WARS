@@ -18,7 +18,7 @@ void server_or_client(SDL_Renderer *renderer, char *menu, TTF_Font *font){
         }
         usleep(200);
         SDL_RenderClear(renderer);
-        disp_text(renderer, "[s]erver or [c]lient?", font, 240, 200);
+        disp_text(renderer, "[s]erver or [c]lient?", font, 480, 400);
         SDL_RenderPresent(renderer);
     }
 }
@@ -54,8 +54,8 @@ void ask_for_ip(SDL_Renderer *renderer, TTF_Font *font, char *ip) {
         }
         usleep(200);
         SDL_RenderClear(renderer);
-        disp_text(renderer, "ip addres", font, 240, 200);
-        disp_text(renderer, ip, font, 240, 230);
+        disp_text(renderer, "ip addres", font, 480, 400);
+        disp_text(renderer, ip, font, 480, 460);
         SDL_RenderPresent(renderer);
     }
 }

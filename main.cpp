@@ -53,6 +53,7 @@ void init_players() {
         players[i].reloading = false;
         players[i].kills = 0;
         players[i].deaths = 0;
+        players[i].prev_bullet_time = -3;
     }
 }
 
@@ -112,7 +113,7 @@ int main(){
     SDL_Texture *map = NULL;
     TTF_Init();
     TTF_Font *font;
-    font = TTF_OpenFont("resources/m5x7.ttf", 24);
+    font = TTF_OpenFont("resources/m5x7.ttf", 60);
     init_players();
     window = SDL_CreateWindow(
             "game",
@@ -167,7 +168,8 @@ int main(){
             if(line[y] == 'W') {
                 maze[x][y] = 0;
             } else if(line[y] == 'B') {
-                maze[x][y] = 1;
+                // maze[x][y] = 2;
+                maze[x][y] = 2;
             }
         }
         x++;
@@ -216,7 +218,7 @@ int main(){
             c=0;
             // cout << "God: " << god << endl;
         }
-
+        // map = get_map_texture(renderer);
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 break;
@@ -231,24 +233,34 @@ int main(){
             SDL_RenderCopy(renderer, tex, NULL, &players[i].position);
         }
 
-        disp_text(renderer, "GOD: ", font, 300, 10);
+        disp_text(renderer, "GOD: ", font, 600, 10);
         char god_c[10] = {};
         sprintf(god_c, "%d", god);
-        disp_text(renderer, god_c, font, 330, 10);
+        disp_text(renderer, god_c, font, 680, 10);
 
-        disp_text(renderer, "kills", font, 400, 10);
-        for (i = 0; i <= number_of_players; i++) {
-            char kills[10] = {};
-            sprintf(kills, "%d", players[i].kills);
-            disp_text(renderer, kills, font, 400, 30 + i * 20);
+        if(number_of_players > 1) {
+            disp_text(renderer, "kills", font, 800, 10);
+            for (i = 0; i <= number_of_players; i++) {
+                char kills[10] = {};
+                sprintf(kills, "%d", players[i].kills);
+                disp_text(renderer, kills, font, 800, 40 + i * 40);
+            }
+
+            disp_text(renderer, "deaths", font, 920, 10);
+            for (i = 0; i <= number_of_players; i++) {
+                char deaths[10] = {};
+                sprintf(deaths, "%d", players[i].deaths);
+                disp_text(renderer, deaths, font, 920, 40 + i * 40);
+            }
+        } else {
+            disp_text(renderer, "kills", font, 800, 10);
+            for (i = 0; i <= number_of_players; i++) {
+                char kills[10] = {};
+                sprintf(kills, "%d", players[i].kills);
+                disp_text(renderer, kills, font, 800, 40 + i * 40);
+            }
         }
 
-        disp_text(renderer, "deaths", font, 460, 10);
-        for (i = 0; i <= number_of_players; i++) {
-            char deaths[10] = {};
-            sprintf(deaths, "%d", players[i].deaths);
-            disp_text(renderer, deaths, font, 460, 30 + i * 20);
-        }
 
         for (i = 0; i < bullets_number; i++) {
             bullet_pos.x = bullets_client[i*2];
