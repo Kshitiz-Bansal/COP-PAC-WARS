@@ -15,6 +15,7 @@
 #include "constans.h"
 #include "font.h"
 #include "menu.h"
+#include "sound.h"
 
 struct Player players[MAX_PLAYERS];
 int number_of_players = 0;
@@ -139,6 +140,8 @@ int main(){
         return 1;
     }
 
+    init_sound();
+    play_sound(4);
     int i;
 
     name = (char*) malloc(16 * sizeof(char));
@@ -204,10 +207,10 @@ int main(){
         usleep(100);
     }
 
-    cout << "my_id is: "<<my_id<<endl;
-    cout << "player name: "<<name<<endl;
-    players[my_id].name = name;
-    cout << "name set: "<<players[my_id].name;
+    // cout << "my_id is: "<<my_id<<endl;
+    // cout << "player name: "<<name<<endl;
+    // players[my_id].name = name;
+    // cout << "name set: "<<players[my_id].name;
 
     SDL_Rect bullet_pos;
     bullet_pos.w = BULLET_HEIGHT;
@@ -245,7 +248,7 @@ int main(){
         disp_text(renderer, "GOD: ", font, 600, 10);
         char god_c[10] = {};
         sprintf(god_c, "%d", god);
-        disp_text(renderer, god_c, font, 670, 10);
+        disp_text(renderer, god_c, font, 680, 10);
 
         if(number_of_players > 1) {
             disp_text(renderer, "player", font, 800, 10);
@@ -255,11 +258,11 @@ int main(){
                 disp_text(renderer, id, font, 800, 40 + i * 40);
             }
 
-            disp_text(renderer, "kills", font, 960, 10);
+            disp_text(renderer, "kills", font, 980, 10);
             for (i = 0; i <= number_of_players; i++) {
                 char kills[10] = {};
                 sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 960, 40 + i * 40);
+                disp_text(renderer, kills, font, 980, 40 + i * 40);
             }
 
             disp_text(renderer, "deaths", font, 1080, 10);
@@ -276,11 +279,11 @@ int main(){
                 disp_text(renderer, id, font, 800, 40 + i * 40);
             }
 
-            disp_text(renderer, "kills", font, 920, 10);
+            disp_text(renderer, "kills", font, 940, 10);
             for (i = 0; i <= number_of_players; i++) {
                 char kills[10] = {};
                 sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 920, 40 + i * 40);
+                disp_text(renderer, kills, font, 940, 40 + i * 40);
             }
         }
 
@@ -298,6 +301,7 @@ int main(){
     pthread_cancel(thread_id_client);
     pthread_cancel(thread_id_server);
     pthread_cancel(thread_id_server_send);
+    close_sound();
     SDL_DestroyTexture(tex);
     SDL_DestroyTexture(bullet);
     SDL_DestroyTexture(map);

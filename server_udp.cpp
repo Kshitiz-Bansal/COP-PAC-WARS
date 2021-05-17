@@ -7,6 +7,7 @@
 #include "constans.h"
 #include "time.h"
 #include "sys/time.h"
+#include "sound.h"
 
 struct sockaddr_in clients_addresses[MAX_PLAYERS];
 struct Player players_server[MAX_PLAYERS];
@@ -139,6 +140,7 @@ void* server_send_loop(void *arg) {
                     players_server[i].deaths++;
                     players_server[god].kills++;
                     players_server[i].spawn_time = now;
+                    play_sound(0);
                 }
             }
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
@@ -149,6 +151,7 @@ void* server_send_loop(void *arg) {
                     players_server[i].deaths++;
                     players_server[killer].kills++;
                     players_server[i].spawn_time = now;
+                    play_sound(0);
                 }
             }
         }
