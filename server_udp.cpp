@@ -12,6 +12,7 @@
 struct sockaddr_in clients_addresses[MAX_PLAYERS];
 struct Player players_server[MAX_PLAYERS];
 struct node *bullets_server = NULL;
+int16_t map_array[301];
 int number_of_connected_clients = 0;
 
 void prepare_server(int *sock, struct sockaddr_in *server_sock) {
@@ -126,6 +127,11 @@ void* server_send_loop(void *arg) {
     double time_interval;
     int killer;
     while (1) {
+        for(int x=0; x<15; x++) {
+            for(int y=0; y<20; y++) {
+                map_array[x*20+y+1] = maze[x][y];
+            }
+        }
         gettimeofday(&start, NULL);
         int i, j;
         move_bullets(&bullets_server);
@@ -175,6 +181,13 @@ void* server_send_loop(void *arg) {
             }
             send_data(socket, clients_addresses[i], bullet_array, 1 + (bullets_n * 2));
             usleep(20);
+            //
+            // cout << "before sending\n";
+            // send_data(socket, clients_addresses[i], map_array, 301);
+            // usleep(20);
+            // cout << "after sending\n";
+            // sendto(socket, "hello", 5, 0, (struct sockaddr*)&clients_addresses[i], sizeof(struct sockaddr));
+            //
         }
         free(bullet_array);
         gettimeofday(&stop, NULL);

@@ -24,7 +24,7 @@ int16_t bullets_client[256];
 int bullets_number = 0;
 int maze[15][20]; // 2X
 int god = -1;
-
+int maze_array[300];
 
 SDL_Texture* load_texture(SDL_Renderer *renderer, char *file) {
     SDL_Surface *bitmap = NULL;
@@ -81,6 +81,12 @@ void* client_loop(void *arg) {
     while (1) {
         length = client_listen(socket, tab);
         id = tab[0];
+        // if(tab[0] == 'h') {
+        //     cout << "recieved map\n";
+        // }
+        // if(sizeof(tab) == 300*sizeof('1')) {
+        //     cout << "recieved map\n";
+        // }
         if (id == -1) {
             receive_new_id(tab[1]);
         }
@@ -96,6 +102,16 @@ void* client_loop(void *arg) {
             memcpy(bullets_client, tab + 1, sizeof(int16_t) * 2 * bullets_in_array);
             bullets_number = bullets_in_array;
         }
+        // if(id == -3) {
+        //     cout << "recieved map\n";
+        //     // for(int i=0; i<300; i++) {
+        //     //     int x, y;
+        //     //     y = i%20;
+        //     //     x = i/20;
+        //     //     maze[x][y] = tab[i];
+        //     // }
+        //     memcpy(maze_array, tab+1, 300);
+        // }
         usleep(50);
     }
 }
