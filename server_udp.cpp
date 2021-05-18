@@ -73,8 +73,12 @@ void* server_receive_loop(void *arg) {
                     temp.face = players_server[client_pos].face;
                     if (temp.face == 1) {
                         temp.position.x += PLAYER_WIDTH;
-                    } else {
+                    } else if(temp.face == -1){
                         temp.position.x -= BULLET_WIDTH;
+                    } else if(temp.face == 2){
+                        temp.position.y += PLAYER_WIDTH;
+                    } else if(temp.face == -2){
+                        temp.position.y -= BULLET_WIDTH;
                     }
                     temp.player_id = client_pos;
                     players_server[client_pos].prev_bullet_time = now;
@@ -144,7 +148,7 @@ void* server_send_loop(void *arg) {
                     play_sound(3);
                 }
             }
-            if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
+            if (check_if_player_dies(&players_server[i], &bullets_server, &killer, i)) {
                 time_t now = time(0);
                 if(now - players_server[i].spawn_time > 3) {
                     players_server[i].position.x = SPAWN_X;

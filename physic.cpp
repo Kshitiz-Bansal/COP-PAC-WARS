@@ -91,7 +91,12 @@ void move_bullets(struct node **bullets) {
     int i = 0;
     while (next != NULL) {
         b = (struct Bullet*) next->data;
-        b->position.x += PLAYER_SPEED * b->face * 1.5;
+        int direction = b->face;
+        if(direction == 1 || direction == -1) {
+            b->position.x += PLAYER_SPEED * direction * 1.5;
+        } else if(direction == 2 || direction == -2) {
+            b->position.y -= PLAYER_SPEED * (direction/2) * 1.5;
+        }
         next = next->next;
         if (check_collisions(&b->position)) {
         // if (check_bullet_collisions(&b->position)) {
@@ -102,7 +107,7 @@ void move_bullets(struct node **bullets) {
     }
 }
 
-int check_if_player_dies(struct Player *player, struct node **bullets, int *killer) {
+int check_if_player_dies(struct Player *player, struct node **bullets, int *killer, int k) {
     struct node *next = *bullets;
     struct SDL_Rect b;
     struct SDL_Rect p = player->position;
@@ -114,6 +119,9 @@ int check_if_player_dies(struct Player *player, struct node **bullets, int *kill
                 p.y < (b.y + b.h) &&
                 (p.y + p.h) > b.y) {
             *killer = ((struct Bullet*) next->data)->player_id;
+            if(k == *killer) {
+                return false;
+            }
             erase_element(bullets, i);
             return true;
         }
@@ -138,9 +146,11 @@ void move_player(struct Player *player) {
     }
     if (player->down) {
         y_movement += PLAYER_SPEED;
+        player->face = -2;
     }
     if (player->up) {
         y_movement -= PLAYER_SPEED;
+        player->face = 2;
     }
 
 
@@ -153,15 +163,7 @@ void move_player(struct Player *player) {
 
         if (y_movement != 0 && move_and_check_collisions(&player->position, Y_AXIS, y_movement)) {
             decrement_abs(&y_movement);
-            // player->can_jump = false;
         } else {
-            // if(y_movement > 0) {
-            //     // player->can_jump = true;
-            //     player->y_speed = 0;
-            // }
-            // if(y_movement < 0) {
-            //     player->y_speed = 0;
-            // }
             y_movement = 0;
         }
     }
