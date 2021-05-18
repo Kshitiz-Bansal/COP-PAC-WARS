@@ -225,6 +225,7 @@ int main(int argc, char** argv){
     SDL_Event e;
     int c=0;
     time_t dif = 0;
+    int winner = -1;
     while (1) {
         c++;
         if(c == 100) {
@@ -309,6 +310,28 @@ int main(int argc, char** argv){
             SDL_RenderCopy(renderer, bullet, NULL, &bullet_pos);
         }
         SDL_RenderPresent(renderer);
+
+        for(i=0; i <= number_of_players; i++) {
+            if(players[i].score > 11) {
+                winner = i;
+                break;
+            }
+        }
+        if(winner!=-1) break;
+    }
+
+    if(winner != -1) {
+        // while(1) {
+            SDL_RenderClear(renderer);
+
+            disp_text(renderer, "Player  wins!", font, 480, 400);
+            char win[10] = {};
+            sprintf(win, "%d", winner);
+            disp_text(renderer, win, font, 610, 400);
+
+            SDL_RenderPresent(renderer);
+            usleep(5000000);
+        // }
     }
 
     close(sock_client);
@@ -320,6 +343,8 @@ int main(int argc, char** argv){
     SDL_DestroyTexture(tex);
     SDL_DestroyTexture(bullet);
     SDL_DestroyTexture(map);
+
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
