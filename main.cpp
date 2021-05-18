@@ -99,12 +99,12 @@ void* client_loop(void *arg) {
     }
 }
 
-int main(){
+int main(int argc, char** argv){
 
     struct sockaddr_in server_addr, client_addr;
     int sock_server, sock_client;
     char *server_ip_addr = NULL;
-    char *name = NULL;
+    // char *name = NULL;
 
     char menu = 's';
     SDL_Window *window;
@@ -117,8 +117,12 @@ int main(){
     TTF_Font *font;
     font = TTF_OpenFont("resources/m5x7.ttf", 60);
     init_players();
+    char* name = "game";
+    if(argc) {
+        name = argv[1];
+    }
     window = SDL_CreateWindow(
-            "game",
+            name,
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             1280, // 2X
@@ -236,15 +240,16 @@ int main(){
         }
         // map = get_map_texture(renderer);
 
-        if(SDL_PollEvent(&e)) {
-            pause_resume_music(e);
-        }
+        // if(SDL_PollEvent(&e)) {
+        //     pause_resume_music(e);
+        // }
 
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 break;
             }
             resolve_keyboard(e, &players[my_id]);
+            pause_resume_music(e);
         }
         send_to_server(sock_client, server_addr, my_id, key_state_from_player(&players[my_id]));
         usleep(30);
