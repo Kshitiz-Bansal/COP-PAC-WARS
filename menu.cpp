@@ -1,11 +1,12 @@
 #include <menu.h>
-
+#include "sound.h"
 
 void server_or_client(SDL_Renderer *renderer, char *menu, TTF_Font *font){
     SDL_Event e;
     int pressed = false;
     while (!pressed) {
         if (SDL_PollEvent(&e)) {
+            play_sound(0);
             if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_c) {
                     *menu = 'c';
@@ -31,6 +32,7 @@ void ask_for_ip(SDL_Renderer *renderer, TTF_Font *font, char *ip) {
     int ok = false;
     while (!ok) {
         if (SDL_PollEvent(&e)) {
+            play_sound(0);
             if (e.type == SDL_KEYDOWN) {
                 if ((e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9) || e.key.keysym.sym == SDLK_PERIOD) {
                     if (position > 14) {

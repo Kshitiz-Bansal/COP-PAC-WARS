@@ -226,11 +226,20 @@ int main(){
             time_t now = time(0);
             long int v = static_cast<long int>(now);
             v = v % 30;
-            god = (int)v/(int)(30/(number_of_players+1));
+            int new_god = (int)v/(int)(30/(number_of_players+1));
+            if(god != new_god) {
+                play_sound(2);
+                god = new_god;
+            }
             c=0;
             // cout << "God: " << god << endl;
         }
         // map = get_map_texture(renderer);
+
+        if(SDL_PollEvent(&e)) {
+            pause_resume_music(e);
+        }
+
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 break;

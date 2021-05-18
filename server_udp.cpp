@@ -79,6 +79,7 @@ void* server_receive_loop(void *arg) {
                     }
                     temp.player_id = client_pos;
                     players_server[client_pos].prev_bullet_time = now;
+                    play_sound(1);
                     push_element(&bullets_server, &temp, sizeof(struct Bullet));
                 }
             }
@@ -140,7 +141,7 @@ void* server_send_loop(void *arg) {
                     players_server[i].deaths++;
                     players_server[god].kills++;
                     players_server[i].spawn_time = now;
-                    play_sound(0);
+                    play_sound(3);
                 }
             }
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer)) {
@@ -151,7 +152,7 @@ void* server_send_loop(void *arg) {
                     players_server[i].deaths++;
                     players_server[killer].kills++;
                     players_server[i].spawn_time = now;
-                    play_sound(0);
+                    play_sound(3);
                 }
             }
         }

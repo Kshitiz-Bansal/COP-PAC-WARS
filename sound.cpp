@@ -1,10 +1,10 @@
 #include "sound.h"
 
 Mix_Music *music = NULL;
-Mix_Chunk *gScratch = NULL;
-Mix_Chunk *gHigh = NULL;
-Mix_Chunk *gMedium = NULL;
-Mix_Chunk *gLow = NULL;
+Mix_Chunk *kill_chunk = NULL; // 3
+Mix_Chunk *type_chunk = NULL; // 0
+Mix_Chunk *shoot_chunk = NULL; // 1
+Mix_Chunk *god_chunk = NULL; // 2
 
 
 void init_sound() {
@@ -18,26 +18,26 @@ void init_sound() {
 		cout << "Failed to load beat music! SDL_mixer Error: "<<  Mix_GetError() << endl;
 	}
 
-    gScratch = Mix_LoadWAV( "resources/sounds/beat.wav" );
-    if( gScratch == NULL )
+    kill_chunk = Mix_LoadWAV( "resources/sounds/death.wav" );
+    if( kill_chunk == NULL )
 	{
 		cout << "Failed to load beat music! SDL_mixer Error: "<<  Mix_GetError() << endl;
 	}
 
-    gHigh = Mix_LoadWAV( "resources/sounds/beat.wav" );
-    if( gHigh == NULL )
+    type_chunk = Mix_LoadWAV( "resources/sounds/typing.wav" );
+    if( type_chunk == NULL )
 	{
 		cout << "Failed to load beat music! SDL_mixer Error: "<<  Mix_GetError() << endl;
 	}
 
-    gMedium = Mix_LoadWAV( "resources/sounds/beat.wav" );
-    if( gMedium == NULL )
+    shoot_chunk = Mix_LoadWAV( "resources/sounds/shoot.wav" );
+    if( shoot_chunk == NULL )
 	{
 		cout << "Failed to load beat music! SDL_mixer Error: "<<  Mix_GetError() << endl;
 	}
 
-    gLow = Mix_LoadWAV( "resources/sounds/beat.wav" );
-    if( gLow == NULL )
+    god_chunk = Mix_LoadWAV( "resources/sounds/god_change.wav" );
+    if( god_chunk == NULL )
 	{
 		cout << "Failed to load beat music! SDL_mixer Error: "<<  Mix_GetError() << endl;
 	}
@@ -46,19 +46,19 @@ void init_sound() {
 void play_sound(int v) {
     switch (v) {
         case 0:
-        Mix_PlayChannel( -1, gHigh, 0 );
+        Mix_PlayChannel( -1, type_chunk, 0 );
         break;
 
         case 1:
-        Mix_PlayChannel( -1, gMedium, 0 );
+        Mix_PlayChannel( -1, shoot_chunk, 0 );
         break;
 
         case 2:
-        Mix_PlayChannel( -1, gLow, 0 );
+        Mix_PlayChannel( -1, god_chunk, 0 );
         break;
 
         case 3:
-        Mix_PlayChannel( -1, gScratch, 0 );
+        Mix_PlayChannel( -1, kill_chunk, 0 );
         break;
 
         case 4:
@@ -66,15 +66,29 @@ void play_sound(int v) {
     }
 }
 
+void pause_resume_music(SDL_Event e) {
+    if(e.key.keysym.sym == SDLK_m) {
+        if(!Mix_PlayingMusic()) {
+            Mix_PlayMusic(music, -1);
+        } else {
+            if(Mix_PausedMusic()) {
+                Mix_ResumeMusic();
+            } else {
+                Mix_PauseMusic();
+            }
+        }
+    }
+}
+
 void close_sound() {
-    Mix_FreeChunk( gScratch );
-	Mix_FreeChunk( gHigh );
-	Mix_FreeChunk( gMedium );
-	Mix_FreeChunk( gLow );
-	gScratch = NULL;
-	gHigh = NULL;
-	gMedium = NULL;
-	gLow = NULL;
+    Mix_FreeChunk( kill_chunk );
+	Mix_FreeChunk( type_chunk );
+	Mix_FreeChunk( shoot_chunk );
+	Mix_FreeChunk( god_chunk );
+	kill_chunk = NULL;
+	type_chunk = NULL;
+	shoot_chunk = NULL;
+	god_chunk = NULL;
 
 	//Free the music
 	Mix_FreeMusic( music );
