@@ -54,6 +54,7 @@ void init_players() {
         players[i].reloading = false;
         players[i].kills = 0;
         players[i].deaths = 0;
+        players[i].score = 0;
         players[i].prev_bullet_time = -3;
     }
 }
@@ -87,7 +88,7 @@ void* client_loop(void *arg) {
             check_if_its_new_player(id);
             players[id].position.x = tab[1];
             players[id].position.y = tab[2];
-            players[id].kills = tab[3];
+            players[id].score = tab[3];
             players[id].deaths = tab[4];
         }
         if (id == -2) {
@@ -272,19 +273,19 @@ int main(int argc, char** argv){
                 disp_text(renderer, id, font, 800, 40 + i * 40);
             }
 
-            disp_text(renderer, "kills", font, 980, 10);
+            disp_text(renderer, "score", font, 980, 10);
             for (i = 0; i <= number_of_players; i++) {
-                char kills[10] = {};
-                sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 980, 40 + i * 40);
+                char score[10] = {};
+                sprintf(score, "%d", players[i].score);
+                disp_text(renderer, score, font, 980, 40 + i * 40);
             }
 
-            disp_text(renderer, "deaths", font, 1080, 10);
-            for (i = 0; i <= number_of_players; i++) {
-                char deaths[10] = {};
-                sprintf(deaths, "%d", players[i].deaths);
-                disp_text(renderer, deaths, font, 1080, 40 + i * 40);
-            }
+            // disp_text(renderer, "deaths", font, 1080, 10);
+            // for (i = 0; i <= number_of_players; i++) {
+            //     char deaths[10] = {};
+            //     sprintf(deaths, "%d", players[i].deaths);
+            //     disp_text(renderer, deaths, font, 1080, 40 + i * 40);
+            // }
         } else {
             disp_text(renderer, "player", font, 800, 10);
             for (i = 0; i <= number_of_players; i++) {
@@ -293,11 +294,11 @@ int main(int argc, char** argv){
                 disp_text(renderer, id, font, 800, 40 + i * 40);
             }
 
-            disp_text(renderer, "kills", font, 940, 10);
+            disp_text(renderer, "score", font, 940, 10);
             for (i = 0; i <= number_of_players; i++) {
-                char kills[10] = {};
-                sprintf(kills, "%d", players[i].kills);
-                disp_text(renderer, kills, font, 940, 40 + i * 40);
+                char score[10] = {};
+                sprintf(score, "%d", players[i].score);
+                disp_text(renderer, score, font, 940, 40 + i * 40);
             }
         }
 

@@ -14,7 +14,6 @@ struct Player players_server[MAX_PLAYERS];
 struct node *bullets_server = NULL;
 int number_of_connected_clients = 0;
 
-// probably no change req
 void prepare_server(int *sock, struct sockaddr_in *server_sock) {
     memset(clients_addresses, 0, sizeof(struct sockaddr_in) * MAX_PLAYERS);
     if ((*sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
@@ -25,7 +24,7 @@ void prepare_server(int *sock, struct sockaddr_in *server_sock) {
     }
 }
 
-// probably no change req
+
 struct sockaddr_in receive_data(int sock, int16_t data[]) {
     struct sockaddr_in addr;
     socklen_t addr_size = sizeof(struct sockaddr);
@@ -33,7 +32,7 @@ struct sockaddr_in receive_data(int sock, int16_t data[]) {
     return addr;
 }
 
-//// change data shaayad
+
 void send_data(int sock, struct sockaddr_in client, int16_t data[], int size) {
     socklen_t addr_size = sizeof(struct sockaddr);
     sendto(sock, data, sizeof(int16_t) * size, 0, (struct sockaddr*)&client, addr_size);
@@ -138,8 +137,9 @@ void* server_send_loop(void *arg) {
                 if(now - players_server[i].spawn_time > 3) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
-                    players_server[i].deaths++;
-                    players_server[god].kills++;
+                    // players_server[i].deaths++;
+                    // players_server[god].kills++;
+                    players_server[god].score += 2;
                     players_server[i].spawn_time = now;
                     play_sound(3);
                 }
@@ -149,8 +149,9 @@ void* server_send_loop(void *arg) {
                 if(now - players_server[i].spawn_time > 3) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
-                    players_server[i].deaths++;
-                    players_server[killer].kills++;
+                    // players_server[i].deaths++;
+                    // players_server[killer].kills++;
+                    players_server[killer].score++;
                     players_server[i].spawn_time = now;
                     play_sound(3);
                 }
@@ -163,7 +164,7 @@ void* server_send_loop(void *arg) {
                 tab[0] = j;
                 tab[1] = players_server[j].position.x;
                 tab[2] = players_server[j].position.y;
-                tab[3] = players_server[j].kills;
+                tab[3] = players_server[j].score;
                 tab[4] = players_server[j].deaths;
                 send_data(socket, clients_addresses[i], tab, 5);
                 usleep(20);
