@@ -16,6 +16,7 @@ struct Player {
     long int prev_bullet_time;
     char *name;
     int score;
+    int immune_time;
 };
 
 struct Bullet {

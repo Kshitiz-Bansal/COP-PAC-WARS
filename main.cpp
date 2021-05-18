@@ -55,6 +55,7 @@ void init_players() {
         players[i].kills = 0;
         players[i].deaths = 0;
         players[i].score = 0;
+        players[i].immune_time = 0;
         players[i].prev_bullet_time = -3;
     }
 }
@@ -96,6 +97,7 @@ void* client_loop(void *arg) {
             players[id].position.y = tab[2];
             players[id].score = tab[3];
             players[id].deaths = tab[4];
+            players[id].immune_time = tab[5];// //
         }
         if (id == -2) {
             bullets_in_array = (length - sizeof(int16_t)) / (sizeof(int16_t) * 2);
@@ -128,6 +130,9 @@ int main(int argc, char** argv){
     SDL_Renderer *renderer;
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Texture *tex = NULL;
+    SDL_Texture *tex1 = NULL;
+    SDL_Texture *tex2 = NULL;
+    SDL_Texture *tex3 = NULL;
     SDL_Texture *bullet = NULL;
     SDL_Texture *map = NULL;
     TTF_Init();
@@ -206,6 +211,9 @@ int main(int argc, char** argv){
 
     map = get_map_texture(renderer);
     tex = load_texture(renderer, "resources/player.bmp");
+    tex1 = load_texture(renderer, "resources/bullet.bmp");
+    tex2 = load_texture(renderer, "resources/dotTile.bmp");
+    tex3 = load_texture(renderer, "resources/tile.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
 
     if (menu == 'c') {
@@ -274,7 +282,17 @@ int main(int argc, char** argv){
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, map, NULL, NULL);
         for (i = 0; i <= number_of_players; i++) {
-            SDL_RenderCopy(renderer, tex, NULL, &players[i].position);
+            // time_t now = time(0);
+            // now = now%1000;
+            // long int c = now - players[i].spawn_time;
+            // cout << players[i].immune_time << endl;
+            // cout << c << endl;
+            int c_immune = players[i].immune_time;
+            if(c_immune > 0) {
+                SDL_RenderCopy(renderer, tex1, NULL, &players[i].position);
+            } else {
+                SDL_RenderCopy(renderer, tex, NULL, &players[i].position);
+            }
         }
 
         disp_text(renderer, "GOD: ", font, 600, 10);

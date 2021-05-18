@@ -127,11 +127,11 @@ void* server_send_loop(void *arg) {
     double time_interval;
     int killer;
     while (1) {
-        for(int x=0; x<15; x++) {
-            for(int y=0; y<20; y++) {
-                map_array[x*20+y+1] = maze[x][y];
-            }
-        }
+        // for(int x=0; x<15; x++) {
+        //     for(int y=0; y<20; y++) {
+        //         map_array[x*20+y+1] = maze[x][y];
+        //     }
+        // }
         gettimeofday(&start, NULL);
         int i, j;
         move_bullets(&bullets_server);
@@ -151,8 +151,11 @@ void* server_send_loop(void *arg) {
                     // players_server[god].kills++;
                     players_server[god].score += 2;
                     players_server[i].spawn_time = now;
+                    players_server[i].immune_time = 300;
                     play_sound(3);
                 }
+            } else {
+                players_server[i].immune_time -= 1;
             }
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer, i)) {
                 time_t now = time(0);
@@ -163,8 +166,11 @@ void* server_send_loop(void *arg) {
                     // players_server[killer].kills++;
                     players_server[killer].score++;
                     players_server[i].spawn_time = now;
+                    players_server[i].immune_time = 300;
                     play_sound(3);
                 }
+            } else {
+                players_server[i].immune_time -= 1;
             }
         }
         int16_t *bullet_array = NULL;
@@ -176,7 +182,8 @@ void* server_send_loop(void *arg) {
                 tab[2] = players_server[j].position.y;
                 tab[3] = players_server[j].score;
                 tab[4] = players_server[j].deaths;
-                send_data(socket, clients_addresses[i], tab, 5);
+                tab[5] = players_server[j].immune_time;
+                send_data(socket, clients_addresses[i], tab, 6);
                 usleep(20);
             }
             send_data(socket, clients_addresses[i], bullet_array, 1 + (bullets_n * 2));
