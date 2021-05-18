@@ -68,14 +68,14 @@ void play_sound(int v) {
 
 void pause_resume_music(SDL_Event e) {
     if(e.key.keysym.sym == SDLK_m) {
-        if(!Mix_PlayingMusic()) {
-            Mix_PlayMusic(music, -1);
+        // if(!Mix_PlayingMusic()) {
+            play_sound(4);
+        // }
+    } else if(e.key.keysym.sym == SDLK_p) {
+        if(Mix_PausedMusic()) {
+            // Mix_ResumeMusic();
         } else {
-            if(Mix_PausedMusic()) {
-                Mix_ResumeMusic();
-            } else {
-                Mix_PauseMusic();
-            }
+            Mix_PauseMusic();
         }
     }
 }
