@@ -32,3 +32,17 @@ Kindly google ```install sdl [OS]``` and ```install sdl [image/mixer/ttf] [OS]``
 2) Run  
     use ```./game [player_name]```  
     player_name is an optional argument. Game window is named using it.
+
+# References:
+1) For almost all doubts:  
+https://lazyfoo.net/tutorials/SDL/index.php
+
+2) For networking:
+    1) https://github.com/maciejspychala/sdl-game
+    2) https://www.youtube.com/watch?v=IydkqseK6oQ
+    3) https://www.tutorialspoint.com/difference-between-tcp-and-udp
+    4) http://www.steves-internet-guide.com/tcp-vs-udp/
+
+3) For maze creation:  
+    1) https://en.wikipedia.org/wiki/User:Dllu/Maze
+    2) Introduction to Algorithms, CLRS
