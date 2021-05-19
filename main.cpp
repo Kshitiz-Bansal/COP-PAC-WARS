@@ -150,6 +150,7 @@ int main(int argc, char** argv){
 //     SDL_Texture *blink7 = NULL;
 //     SDL_Texture *blink8 = NULL;
 // >>>>>>> 8941d01052b3ce2580e64a05caf4e5d8c74733ed
+
     SDL_Texture *tex2 = NULL;
     SDL_Texture *tex3 = NULL;
     SDL_Texture *bullet = NULL;
@@ -262,6 +263,7 @@ int main(int argc, char** argv){
 //
 //     bullet = load_texture(renderer, "resources/yellow.bmp");
 // >>>>>>> 8941d01052b3ce2580e64a05caf4e5d8c74733ed
+// >>>>>>> 987d6a2154066a77302581030954452bf7af6c97
 
     if (menu == 'c') {
         server_ip_addr = (char*) malloc(16 * sizeof(char));
