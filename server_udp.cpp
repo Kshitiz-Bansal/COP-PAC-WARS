@@ -147,6 +147,7 @@ void* server_send_loop(void *arg) {
                 if(now - players_server[i].spawn_time > 4) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
+                    players_server[i].face = 1;
                     // players_server[i].deaths++;
                     // players_server[god].kills++;
                     players_server[god].score += 2;
@@ -162,6 +163,7 @@ void* server_send_loop(void *arg) {
                 if(now - players_server[i].spawn_time > 4) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
+                    players_server[i].face = 1;
                     // players_server[i].deaths++;
                     // players_server[killer].kills++;
                     players_server[killer].score++;
@@ -183,7 +185,8 @@ void* server_send_loop(void *arg) {
                 tab[3] = players_server[j].score;
                 tab[4] = players_server[j].deaths;
                 tab[5] = players_server[j].immune_time;
-                send_data(socket, clients_addresses[i], tab, 6);
+                tab[6] = players_server[j].face;
+                send_data(socket, clients_addresses[i], tab, 7);
                 usleep(20);
             }
             send_data(socket, clients_addresses[i], bullet_array, 1 + (bullets_n * 2));

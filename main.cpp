@@ -98,6 +98,7 @@ void* client_loop(void *arg) {
             players[id].score = tab[3];
             players[id].deaths = tab[4];
             players[id].immune_time = tab[5];// //
+            players[id].face = tab[6];
         }
         if (id == -2) {
             bullets_in_array = (length - sizeof(int16_t)) / (sizeof(int16_t) * 2);
@@ -132,13 +133,27 @@ int main(int argc, char** argv){
     SDL_Texture *tex = NULL;
     SDL_Texture *immune_tex = NULL;
 // <<<<<<< HEAD
-    SDL_Texture *home_blink0 = NULL;
-    SDL_Texture *home_blink1 = NULL;
-    SDL_Texture *home_blink2 = NULL;
-    // SDL_Texture *others_immune_tex = NULL;
-    SDL_Texture *others_blink0 = NULL;
-    SDL_Texture *others_blink1 = NULL;
-    SDL_Texture *others_blink2 = NULL;
+    SDL_Texture *right_home_blink0 = NULL;
+    SDL_Texture *right_home_blink1 = NULL;
+    SDL_Texture *right_home_blink2 = NULL;
+    SDL_Texture *right_others_blink0 = NULL;
+    SDL_Texture *right_others_blink1 = NULL;
+    SDL_Texture *right_others_blink2 = NULL;
+
+    SDL_Texture *left_home_blink1 = NULL;
+    SDL_Texture *left_home_blink2 = NULL;
+    SDL_Texture *left_others_blink1 = NULL;
+    SDL_Texture *left_others_blink2 = NULL;
+
+    SDL_Texture *up_home_blink1 = NULL;
+    SDL_Texture *up_home_blink2 = NULL;
+    SDL_Texture *up_others_blink1 = NULL;
+    SDL_Texture *up_others_blink2 = NULL;
+
+    SDL_Texture *down_home_blink1 = NULL;
+    SDL_Texture *down_home_blink2 = NULL;
+    SDL_Texture *down_others_blink1 = NULL;
+    SDL_Texture *down_others_blink2 = NULL;
 // =======
 //     SDL_Texture *blink0 = NULL;
 //     SDL_Texture *blink1 = NULL;
@@ -235,12 +250,27 @@ int main(int argc, char** argv){
     immune_tex = load_texture(renderer, "resources/superDotTile.bmp");
     tex2 = load_texture(renderer, "resources/dotTile.bmp");
     tex3 = load_texture(renderer, "resources/tile.bmp");
-    home_blink0 = load_texture(renderer, "resources/pacman_green_0.bmp");
-    others_blink0 = load_texture(renderer, "resources/pacman_yellow_0.bmp");
-    home_blink1 = load_texture(renderer, "resources/pacman_green_1.bmp");
-    others_blink1 = load_texture(renderer, "resources/pacman_yellow_1.bmp");
-    home_blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
-    others_blink2 = load_texture(renderer, "resources/pacman_yellow_2.bmp");
+    right_home_blink0 = load_texture(renderer, "resources/right_green_0.bmp");
+    right_home_blink1 = load_texture(renderer, "resources/right_green_1.bmp");
+    right_home_blink2 = load_texture(renderer, "resources/right_green_2.bmp");
+    right_others_blink0 = load_texture(renderer, "resources/right_yellow_0.bmp");
+    right_others_blink1 = load_texture(renderer, "resources/right_yellow_1.bmp");
+    right_others_blink2 = load_texture(renderer, "resources/right_yellow_2.bmp");
+
+    left_home_blink1 = load_texture(renderer, "resources/left_green_1.bmp");
+    left_home_blink2 = load_texture(renderer, "resources/left_green_2.bmp");
+    left_others_blink1 = load_texture(renderer, "resources/left_yellow_1.bmp");
+    left_others_blink2 = load_texture(renderer, "resources/left_yellow_2.bmp");
+
+    up_home_blink1 = load_texture(renderer, "resources/up_green_1.bmp");
+    up_home_blink2 = load_texture(renderer, "resources/up_green_2.bmp");
+    up_others_blink1 = load_texture(renderer, "resources/up_yellow_1.bmp");
+    up_others_blink2 = load_texture(renderer, "resources/up_yellow_2.bmp");
+
+    down_home_blink1 = load_texture(renderer, "resources/down_green_1.bmp");
+    down_home_blink2 = load_texture(renderer, "resources/down_green_2.bmp");
+    down_others_blink1 = load_texture(renderer, "resources/down_yellow_1.bmp");
+    down_others_blink2 = load_texture(renderer, "resources/down_yellow_2.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
 // =======
 //     immune_tex = load_texture(renderer, "resources/yellow.bmp");
@@ -340,43 +370,159 @@ int main(int argc, char** argv){
             if(i != my_id) {
                 int c_immune = players[i].immune_time;
                 if(c_immune > 0) {
-                    if(blinker < 10) {
-                        SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
-                    } else if(blinker < 17) {
-                        SDL_RenderCopy(renderer, home_blink0, NULL, &players[i].position);
-                    } else if(blinker < 23) {
-                        SDL_RenderCopy(renderer, home_blink1, NULL, &players[i].position);
-                    } else if(blinker < 30) {
-                        SDL_RenderCopy(renderer, home_blink2, NULL, &players[i].position);
+                    if(players[i].face == 1) { // right
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, right_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, right_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -1) { // left
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, left_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, left_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == 2) { // up
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, up_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, up_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -2) { // down
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, down_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, down_home_blink2, NULL, &players[i].position);
+                        }
                     }
                 } else {
-                    if(blinker < 10) {
-                        SDL_RenderCopy(renderer, home_blink0, NULL, &players[i].position);
-                    } else if(blinker < 20) {
-                        SDL_RenderCopy(renderer, home_blink1, NULL, &players[i].position);
-                    } else if(blinker < 30) {
-                        SDL_RenderCopy(renderer, home_blink2, NULL, &players[i].position);
+                    if(players[i].face == 1) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, right_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, right_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -1) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, left_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, left_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == 2) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, up_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, up_home_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -2) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_home_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, down_home_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, down_home_blink2, NULL, &players[i].position);
+                        }
                     }
                 }
             } else {
                 int c_immune = players[i].immune_time;
                 if(c_immune > 0) {
-                    if(blinker < 10) {
-                        SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
-                    } else if(blinker < 17) {
-                        SDL_RenderCopy(renderer, others_blink0, NULL, &players[i].position);
-                    } else if(blinker < 23) {
-                        SDL_RenderCopy(renderer, others_blink1, NULL, &players[i].position);
-                    } else if(blinker < 30) {
-                        SDL_RenderCopy(renderer, others_blink2, NULL, &players[i].position);
+                    if(players[i].face == 1) { // right
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, right_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, right_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -1) { // left
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, left_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, left_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == 2) { // up
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, up_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, up_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -2) { // down
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                        } else if(blinker < 17) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 23) {
+                            SDL_RenderCopy(renderer, down_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, down_others_blink2, NULL, &players[i].position);
+                        }
                     }
                 } else {
-                    if(blinker < 10) {
-                        SDL_RenderCopy(renderer, others_blink0, NULL, &players[i].position);
-                    } else if(blinker < 20) {
-                        SDL_RenderCopy(renderer, others_blink1, NULL, &players[i].position);
-                    } else if(blinker < 30) {
-                        SDL_RenderCopy(renderer, others_blink2, NULL, &players[i].position);
+                    if(players[i].face == 1) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, right_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, right_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -1) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, left_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, left_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == 2) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, up_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, up_others_blink2, NULL, &players[i].position);
+                        }
+                    } else if(players[i].face == -2) {
+                        if(blinker < 10) {
+                            SDL_RenderCopy(renderer, right_others_blink0, NULL, &players[i].position);
+                        } else if(blinker < 20) {
+                            SDL_RenderCopy(renderer, down_others_blink1, NULL, &players[i].position);
+                        } else if(blinker < 30) {
+                            SDL_RenderCopy(renderer, down_others_blink2, NULL, &players[i].position);
+                        }
                     }
                 }
             }
