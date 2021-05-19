@@ -1,4 +1,5 @@
-# ignores all extensionless files
+# ignores all extensionless filers
+resources/extra/*
 *
 !*/
 !*.*
