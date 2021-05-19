@@ -131,9 +131,13 @@ int main(int argc, char** argv){
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Texture *tex = NULL;
     SDL_Texture *immune_tex = NULL;
-    SDL_Texture *blink0 = NULL;
-    SDL_Texture *blink1 = NULL;
-    SDL_Texture *blink2 = NULL;
+    SDL_Texture *home_blink0 = NULL;
+    SDL_Texture *home_blink1 = NULL;
+    SDL_Texture *home_blink2 = NULL;
+    // SDL_Texture *others_immune_tex = NULL;
+    SDL_Texture *others_blink0 = NULL;
+    SDL_Texture *others_blink1 = NULL;
+    SDL_Texture *others_blink2 = NULL;
     SDL_Texture *tex2 = NULL;
     SDL_Texture *tex3 = NULL;
     SDL_Texture *bullet = NULL;
@@ -214,12 +218,15 @@ int main(int argc, char** argv){
 
     map = get_map_texture(renderer);
     tex = load_texture(renderer, "resources/player.bmp");
-    immune_tex = load_texture(renderer, "resources/bullet.bmp");
+    immune_tex = load_texture(renderer, "resources/superDotTile.bmp");
     tex2 = load_texture(renderer, "resources/dotTile.bmp");
     tex3 = load_texture(renderer, "resources/tile.bmp");
-    blink0 = load_texture(renderer, "resources/pacman_green_0.bmp");
-    blink1 = load_texture(renderer, "resources/pacman_green_1.bmp");
-    blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
+    home_blink0 = load_texture(renderer, "resources/pacman_green_0.bmp");
+    others_blink0 = load_texture(renderer, "resources/pacman_yellow_0.bmp");
+    home_blink1 = load_texture(renderer, "resources/pacman_green_1.bmp");
+    others_blink1 = load_texture(renderer, "resources/pacman_yellow_1.bmp");
+    home_blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
+    others_blink2 = load_texture(renderer, "resources/pacman_yellow_2.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
 
     if (menu == 'c') {
@@ -294,16 +301,47 @@ int main(int argc, char** argv){
             // long int c = now - players[i].spawn_time;
             // cout << players[i].immune_time << endl;
             // cout << c << endl;
-            int c_immune = players[i].immune_time;
-            if(c_immune > 0) {
-                SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+            if(i != my_id) {
+                int c_immune = players[i].immune_time;
+                if(c_immune > 0) {
+                    if(blinker < 10) {
+                        SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                    } else if(blinker < 17) {
+                        SDL_RenderCopy(renderer, home_blink0, NULL, &players[i].position);
+                    } else if(blinker < 23) {
+                        SDL_RenderCopy(renderer, home_blink1, NULL, &players[i].position);
+                    } else if(blinker < 30) {
+                        SDL_RenderCopy(renderer, home_blink2, NULL, &players[i].position);
+                    }
+                } else {
+                    if(blinker < 10) {
+                        SDL_RenderCopy(renderer, home_blink0, NULL, &players[i].position);
+                    } else if(blinker < 20) {
+                        SDL_RenderCopy(renderer, home_blink1, NULL, &players[i].position);
+                    } else if(blinker < 30) {
+                        SDL_RenderCopy(renderer, home_blink2, NULL, &players[i].position);
+                    }
+                }
             } else {
-                if(blinker < 10) {
-                    SDL_RenderCopy(renderer, blink0, NULL, &players[i].position);
-                } else if(blinker < 20) {
-                    SDL_RenderCopy(renderer, blink1, NULL, &players[i].position);
-                } else if(blinker < 30) {
-                    SDL_RenderCopy(renderer, blink2, NULL, &players[i].position);
+                int c_immune = players[i].immune_time;
+                if(c_immune > 0) {
+                    if(blinker < 10) {
+                        SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
+                    } else if(blinker < 17) {
+                        SDL_RenderCopy(renderer, others_blink0, NULL, &players[i].position);
+                    } else if(blinker < 23) {
+                        SDL_RenderCopy(renderer, others_blink1, NULL, &players[i].position);
+                    } else if(blinker < 30) {
+                        SDL_RenderCopy(renderer, others_blink2, NULL, &players[i].position);
+                    }
+                } else {
+                    if(blinker < 10) {
+                        SDL_RenderCopy(renderer, others_blink0, NULL, &players[i].position);
+                    } else if(blinker < 20) {
+                        SDL_RenderCopy(renderer, others_blink1, NULL, &players[i].position);
+                    } else if(blinker < 30) {
+                        SDL_RenderCopy(renderer, others_blink2, NULL, &players[i].position);
+                    }
                 }
             }
         }
