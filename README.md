@@ -22,8 +22,8 @@ https://www.cse.iitd.ac.in/~rijurekha/cop290_2021.html
 ### Windows:  
 Why are you still using it?  
 
-### Other OSs:  
-    Kindly google ```install sdl [OS]``` and ```install sdl [image/mixer/ttf] [OS]```   
+### Other OSs:
+Kindly google ```install sdl [OS]``` and ```install sdl [image/mixer/ttf] [OS]```   
 
 # How to run:  
 1) Compile  
