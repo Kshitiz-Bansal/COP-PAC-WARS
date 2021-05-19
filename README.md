@@ -4,7 +4,7 @@ https://www.cse.iitd.ac.in/~rijurekha/cop290_2021.html
 
 PAC-WARS is a combination of two classic games- PACMAN and STAR-WARS. It is a multiplayer game (supports upto 10 players), and can be played on the same network.
 
-#installing dependencies:
+# installing dependencies:
 Ubuntu:
 1) SDL2
     use ```sudo apt install libsdl2-dev libsdl2-2.0-0 -y```
