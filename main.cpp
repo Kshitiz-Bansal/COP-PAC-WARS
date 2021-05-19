@@ -131,6 +131,7 @@ int main(int argc, char** argv){
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Texture *tex = NULL;
     SDL_Texture *immune_tex = NULL;
+// <<<<<<< HEAD
     SDL_Texture *home_blink0 = NULL;
     SDL_Texture *home_blink1 = NULL;
     SDL_Texture *home_blink2 = NULL;
@@ -138,6 +139,17 @@ int main(int argc, char** argv){
     SDL_Texture *others_blink0 = NULL;
     SDL_Texture *others_blink1 = NULL;
     SDL_Texture *others_blink2 = NULL;
+// =======
+//     SDL_Texture *blink0 = NULL;
+//     SDL_Texture *blink1 = NULL;
+//     SDL_Texture *blink2 = NULL;
+//     SDL_Texture *blink3 = NULL;
+//     SDL_Texture *blink4 = NULL;
+//     SDL_Texture *blink5 = NULL;
+//     SDL_Texture *blink6 = NULL;
+//     SDL_Texture *blink7 = NULL;
+//     SDL_Texture *blink8 = NULL;
+// >>>>>>> 8941d01052b3ce2580e64a05caf4e5d8c74733ed
     SDL_Texture *tex2 = NULL;
     SDL_Texture *tex3 = NULL;
     SDL_Texture *bullet = NULL;
@@ -218,6 +230,7 @@ int main(int argc, char** argv){
 
     map = get_map_texture(renderer);
     tex = load_texture(renderer, "resources/player.bmp");
+// <<<<<<< HEAD
     immune_tex = load_texture(renderer, "resources/superDotTile.bmp");
     tex2 = load_texture(renderer, "resources/dotTile.bmp");
     tex3 = load_texture(renderer, "resources/tile.bmp");
@@ -228,6 +241,27 @@ int main(int argc, char** argv){
     home_blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
     others_blink2 = load_texture(renderer, "resources/pacman_yellow_2.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
+// =======
+//     immune_tex = load_texture(renderer, "resources/yellow.bmp");
+//     tex2 = load_texture(renderer, "resources/dotTile.bmp");
+//     tex3 = load_texture(renderer, "resources/tile.bmp");
+//
+//     // blink0 = load_texture(renderer, "resources/pacman_green_0.bmp");
+//     // blink1 = load_texture(renderer, "resources/pacman_green_1.bmp");
+//     // blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
+//
+//     blink0 = load_texture(renderer, "resources/player/frame_0_delay-0.2s.bmp");
+//     blink1 = load_texture(renderer, "resources/player/frame_1_delay-0.2s.bmp");
+//     blink2 = load_texture(renderer, "resources/player/frame_2_delay-0.2s.bmp");
+//     blink3 = load_texture(renderer, "resources/player/frame_3_delay-0.2s.bmp");
+//     blink4 = load_texture(renderer, "resources/player/frame_4_delay-0.2s.bmp");
+//     blink5 = load_texture(renderer, "resources/player/frame_5_delay-0.2s.bmp");
+//     blink6 = load_texture(renderer, "resources/player/frame_6_delay-0.2s.bmp");
+//     blink7 = load_texture(renderer, "resources/player/frame_7_delay-0.2s.bmp");
+//     blink8 = load_texture(renderer, "resources/player/frame_8_delay-0.2s.bmp");
+//
+//     bullet = load_texture(renderer, "resources/yellow.bmp");
+// >>>>>>> 8941d01052b3ce2580e64a05caf4e5d8c74733ed
 
     if (menu == 'c') {
         server_ip_addr = (char*) malloc(16 * sizeof(char));
