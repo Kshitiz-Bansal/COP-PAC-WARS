@@ -176,8 +176,7 @@ SDL_Texture* get_map_texture(SDL_Renderer *renderer) {
     SDL_Rect rect;
     rect.w = TILE_SIZE;
     rect.h = TILE_SIZE;
-    // bitmap1 = SDL_LoadBMP("resources/tile.bmp");
-    bitmap1 = SDL_LoadBMP("resources/mario_brick.bmp");
+    bitmap1 = SDL_LoadBMP("resources/tile_blue.bmp");
     bitmap2 = SDL_LoadBMP("resources/dotTile.bmp");
     SDL_Texture *tex1 = NULL;
     SDL_Texture *tex2 = NULL;
