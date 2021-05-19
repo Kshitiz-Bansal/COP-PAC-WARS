@@ -130,7 +130,10 @@ int main(int argc, char** argv){
     SDL_Renderer *renderer;
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Texture *tex = NULL;
-    SDL_Texture *tex1 = NULL;
+    SDL_Texture *immune_tex = NULL;
+    SDL_Texture *blink0 = NULL;
+    SDL_Texture *blink1 = NULL;
+    SDL_Texture *blink2 = NULL;
     SDL_Texture *tex2 = NULL;
     SDL_Texture *tex3 = NULL;
     SDL_Texture *bullet = NULL;
@@ -211,9 +214,12 @@ int main(int argc, char** argv){
 
     map = get_map_texture(renderer);
     tex = load_texture(renderer, "resources/player.bmp");
-    tex1 = load_texture(renderer, "resources/bullet.bmp");
+    immune_tex = load_texture(renderer, "resources/bullet.bmp");
     tex2 = load_texture(renderer, "resources/dotTile.bmp");
     tex3 = load_texture(renderer, "resources/tile.bmp");
+    blink0 = load_texture(renderer, "resources/pacman_green_0.bmp");
+    blink1 = load_texture(renderer, "resources/pacman_green_1.bmp");
+    blink2 = load_texture(renderer, "resources/pacman_green_2.bmp");
     bullet = load_texture(renderer, "resources/bullet.bmp");
 
     if (menu == 'c') {
@@ -250,6 +256,7 @@ int main(int argc, char** argv){
     int c=0;
     time_t dif = 0;
     int winner = -1;
+    int blinker = 0;
     while (1) {
         c++;
         if(c == 100) {
@@ -289,11 +296,19 @@ int main(int argc, char** argv){
             // cout << c << endl;
             int c_immune = players[i].immune_time;
             if(c_immune > 0) {
-                SDL_RenderCopy(renderer, tex1, NULL, &players[i].position);
+                SDL_RenderCopy(renderer, immune_tex, NULL, &players[i].position);
             } else {
-                SDL_RenderCopy(renderer, tex, NULL, &players[i].position);
+                if(blinker < 10) {
+                    SDL_RenderCopy(renderer, blink0, NULL, &players[i].position);
+                } else if(blinker < 20) {
+                    SDL_RenderCopy(renderer, blink1, NULL, &players[i].position);
+                } else if(blinker < 30) {
+                    SDL_RenderCopy(renderer, blink2, NULL, &players[i].position);
+                }
             }
         }
+        blinker++;
+        if(blinker == 30) blinker = 0;
 
         disp_text(renderer, "GOD: ", font, 600, 10);
         char god_c[10] = {};

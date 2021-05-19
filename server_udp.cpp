@@ -144,7 +144,7 @@ void* server_send_loop(void *arg) {
                             p.y < (g.y + g.h) &&
                             (p.y + p.h) > g.y) {
                 time_t now = time(0);
-                if(now - players_server[i].spawn_time > 3) {
+                if(now - players_server[i].spawn_time > 4) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
                     // players_server[i].deaths++;
@@ -159,7 +159,7 @@ void* server_send_loop(void *arg) {
             }
             if (check_if_player_dies(&players_server[i], &bullets_server, &killer, i)) {
                 time_t now = time(0);
-                if(now - players_server[i].spawn_time > 3) {
+                if(now - players_server[i].spawn_time > 4) {
                     players_server[i].position.x = SPAWN_X;
                     players_server[i].position.y = SPAWN_Y;
                     // players_server[i].deaths++;
