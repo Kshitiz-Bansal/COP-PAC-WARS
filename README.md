@@ -7,7 +7,7 @@ NOTE: This project was made as an assignment for a course COP290 (Prof. Rijurekh
 https://www.cse.iitd.ac.in/~rijurekha/cop290_2021.html
 
 # Installing dependencies:
-##### Ubuntu:
+### Ubuntu:
 1) SDL2  
     use ```sudo apt install libsdl2-dev libsdl2-2.0-0 -y```
 
@@ -19,10 +19,10 @@ https://www.cse.iitd.ac.in/~rijurekha/cop290_2021.html
 
 (* one might have to install SDL_ttf separately too.)
 
-##### Windows:  
+### Windows:  
 Why are you still using it?  
 
-##### Other OSs:  
+### Other OSs:  
     Kindly google ```install sdl [OS]``` and ```install sdl [image/mixer/ttf] [OS]```   
 
 # How to run:  
