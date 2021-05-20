@@ -176,12 +176,13 @@ SDL_Texture* get_map_texture(SDL_Renderer *renderer) {
     SDL_Rect rect;
     rect.w = TILE_SIZE;
     rect.h = TILE_SIZE;
-    bitmap1 = SDL_LoadBMP("resources/tile_blue.bmp");
-    bitmap2 = SDL_LoadBMP("resources/dotTile.bmp");
+    bitmap1 = SDL_LoadBMP("resources/tile2.bmp");
+    // bitmap1 = SDL_LoadBMP("resources/new_tile.bmp");
+    // bitmap2 = SDL_LoadBMP("resources/dotTile.bmp");
     SDL_Texture *tex1 = NULL;
     SDL_Texture *tex2 = NULL;
     tex1 = SDL_CreateTextureFromSurface(renderer, bitmap1);
-    tex2 = SDL_CreateTextureFromSurface(renderer, bitmap2);
+    // tex2 = SDL_CreateTextureFromSurface(renderer, bitmap2);
     map_texture = SDL_CreateTexture(renderer,SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
     SDL_SetRenderTarget(renderer, map_texture);
     int i, j;

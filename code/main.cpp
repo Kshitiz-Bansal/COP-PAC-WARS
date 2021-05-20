@@ -130,6 +130,9 @@ int main(int argc, char** argv){
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Init(SDL_INIT_VIDEO);
+
+
+    SDL_Texture *image = NULL;
     SDL_Texture *tex = NULL;
     SDL_Texture *immune_tex = NULL;
 // <<<<<<< HEAD
@@ -172,7 +175,9 @@ int main(int argc, char** argv){
     SDL_Texture *map = NULL;
     TTF_Init();
     TTF_Font *font;
+    TTF_Font *font2;
     font = TTF_OpenFont("resources/m5x7.ttf", 60);
+    font2 = TTF_OpenFont("resources/stocky.ttf", 72);
     init_players();
     char* name = "game";
     if(argc) {
@@ -205,9 +210,19 @@ int main(int argc, char** argv){
     play_sound(4);
     int i;
 
+    // SDL_Surface* loadedSurface = IMG_Load( "star-wars.png" );
+    // SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
+    // image = SDL_CreateTextureFromSurface( renderer, loadedSurface);
+    // SDL_RenderPresent(renderer);
+    //
+    // SDL_RenderCopyEx(renderer, image, NULL, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    image = load_texture(renderer, "resources/star-wars.bmp");
+
     name = (char*) malloc(16 * sizeof(char));
     // ask_for_name(renderer, font, name);
-    server_or_client(renderer, &menu, font);
+    // server_or_client(renderer, &menu, font, font2, image);
+    server_or_client(renderer, &menu, font, font2, image);
 
     // cout << "menu : " << menu << endl;
     bool create_new_maze = 1;
@@ -297,7 +312,7 @@ int main(int argc, char** argv){
 
     if (menu == 'c') {
         server_ip_addr = (char*) malloc(16 * sizeof(char));
-        ask_for_ip(renderer, font, server_ip_addr);
+        ask_for_ip(renderer, font, server_ip_addr, image);
     }
     pthread_t thread_id_server, thread_id_client, thread_id_server_send;
     server_addr = server_sock_addr(server_ip_addr);
