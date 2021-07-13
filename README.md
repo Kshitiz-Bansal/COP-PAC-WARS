@@ -3,13 +3,13 @@
 PAC-WARS is a combination of two classic games- PACMAN and STAR-WARS. It is an online (can be played on the same network) multiplayer game (supports upto 10 players). It crosses the eating each other functionality of pacman with the shooting each other functionality of star-wars.
 
 <p align="center">
-  <img src="img/first-window.png" width="600"/><br>
+  <img src="first-window.png" width="600"/><br>
   Game main menu
 </p>
 
 
 <p align="center">
-  <img src="img/gameplay.png" width="600"/><br>
+  <img src="gameplay.png" width="600"/><br>
   Gameplay
 </p>
 
