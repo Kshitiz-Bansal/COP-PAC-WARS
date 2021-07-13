@@ -2,7 +2,18 @@
 
 PAC-WARS is a combination of two classic games- PACMAN and STAR-WARS. It is an online (can be played on the same network) multiplayer game (supports upto 10 players). It crosses the eating each other functionality of pacman with the shooting each other functionality of star-wars.
 
-NOTE: my_branch contains the final submission. Branched because of that issue with partner in master.
+<p align="center">
+  <img src="img/first-window.png" width="600"/><br>
+  Game main menu
+</p>
+
+
+<p align="center">
+  <img src="img/gameplay.png" width="600"/><br>
+  Gameplay
+</p>
+
+____
 
 # Installing dependencies:
 ### Ubuntu:
@@ -46,5 +57,6 @@ https://lazyfoo.net/tutorials/SDL/index.php
     2) Introduction to Algorithms, CLRS
 
 
-NOTE: This project was made as an assignment for a course COP290 (Prof. Rijurekha Sen) at IIT Delhi.
-https://www.cse.iitd.ac.in/~rijurekha/cop290_2021.html
+____ 
+
+Course Project | COL290: Design Practices in Computer Science | Prof. Rijurekha Sen | Spring 2021-22
