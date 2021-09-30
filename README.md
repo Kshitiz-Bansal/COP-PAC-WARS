@@ -59,4 +59,4 @@ https://lazyfoo.net/tutorials/SDL/index.php
 
 ____ 
 
-Course Project | COL290: Design Practices in Computer Science | Prof. Rijurekha Sen | Spring 2021-22
+Course Project | Design Practices | Prof. Rijurekha Sen
